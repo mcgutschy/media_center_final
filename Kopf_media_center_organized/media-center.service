@@ -1,0 +1,25 @@
+[Unit]
+Description=Media Center - Radio, YouTube, Hörbuch
+After=network.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sinnie
+WorkingDirectory=/home/sinnie/media_center_final/media_center_organized
+ExecStart=/usr/bin/python3 -m media_center
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Umgebungsvariablen
+Environment=PYTHONUNBUFFERED=1
+Environment=HOME=/home/sinnie
+
+# Sauberes Beenden (SIGTERM → 15 Sekunden Timeout)
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

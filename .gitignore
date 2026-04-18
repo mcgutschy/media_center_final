@@ -1,0 +1,20 @@
+# Hörbuch-Dateien (große MP3s)
+audiobooks/
+
+# Python Bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Fortschritts- und Cache-Dateien
+data/audiobook_progress.json
+
+# System-Dateien
+.DS_Store
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
