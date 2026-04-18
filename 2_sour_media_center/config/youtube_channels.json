@@ -2,58 +2,58 @@
   "channels": [
     {
       "position": 0,
-      "name": "",
-      "url": ""
+      "name": "Tagesschau",
+      "url": "https://www.youtube.com/@tagesschau/videos"
     },
     {
       "position": 1,
-      "name": "",
-      "url": ""
+      "name": "ZDF heute",
+      "url": "https://www.youtube.com/@ZDFheute/videos"
     },
     {
       "position": 2,
-      "name": "",
-      "url": ""
+      "name": "Breaking Lab",
+      "url": "https://www.youtube.com/@BreakingLab"
     },
     {
       "position": 3,
-      "name": "",
-      "url": ""
+      "name": "Zeit TV",
+      "url": "https://www.youtube.com/@zeit/videos"
     },
     {
       "position": 4,
-      "name": "",
-      "url": ""
+      "name": "ARD-alpha",
+      "url": "https://www.youtube.com/@ARDalpha/videos"
     },
     {
       "position": 5,
-      "name": "",
-      "url": ""
+      "name": "Süddeutsche Zeitung",
+      "url": "https://www.youtube.com/@sueddeutsche/videos"
     },
     {
       "position": 6,
-      "name": "",
-      "url": ""
+      "name": "Faz.net",
+      "url": "https://www.youtube.com/@faz/videos"
     },
     {
       "position": 7,
-      "name": "",
-      "url": ""
+      "name": "Detektor.fm",
+      "url": "https://www.youtube.com/@detektorfm/videos"
     },
     {
       "position": 8,
-      "name": "",
-      "url": ""
+      "name": "Officialnorio",
+      "url": "https://www.youtube.com/@Officialnorio/videos"
     },
     {
       "position": 9,
-      "name": "",
-      "url": ""
+      "name": "Akkudoktor",
+      "url": "https://www.youtube.com/@Akkudoktor/videos"
     },
     {
       "position": 10,
-      "name": "",
-      "url": ""
+      "name": "Alte Schule",
+      "url": "https://www.youtube.com/@alte-schule/videos"
     }
   ]
 }

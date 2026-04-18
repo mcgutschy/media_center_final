@@ -148,6 +148,7 @@ class YouTubePlayer:
         # Fetch-Thread-Lock
         self._fetch_lock = threading.Lock()
         self._is_fetching = False
+        self._fetch_cancel = threading.Event()
 
         # Hardware-Initialisierung
         if GPIO_AVAILABLE:
@@ -535,13 +536,17 @@ class YouTubePlayer:
     def _start_channel_playback(self, channel_url):
         """Startet die Wiedergabe eines Kanals (lädt Videos und spielt erstes)"""
         if self._is_fetching:
-            print("⏳ Bereits beim Laden...")
-            return
+            print("⏳ Breche vorheriges Laden ab...")
+            self._fetch_cancel.set()
 
         def fetch_and_play():
             self._is_fetching = True
+            self._fetch_cancel.clear()
             try:
                 videos = self._fetch_channel_videos(channel_url)
+                if self._fetch_cancel.is_set():
+                    print("⏹️  Laden abgebrochen (neuer Kanal)")
+                    return
                 if not videos:
                     print("⚠️  Keine Videos gefunden")
                     self.speak_text("Keine Videos gefunden")
@@ -550,7 +555,6 @@ class YouTubePlayer:
                 self.current_videos = videos
                 self.current_video_index = 0
 
-                # Zeige erste 5 Videos an
                 print(f"📋 Neueste Videos:")
                 for i, v in enumerate(videos[:5]):
                     marker = " ◀" if i == 0 else ""
@@ -558,7 +562,6 @@ class YouTubePlayer:
                 if len(videos) > 5:
                     print(f"   ... und {len(videos) - 5} weitere")
 
-                # Erstes Video abspielen
                 self._play_video_by_index(0)
 
             finally:
