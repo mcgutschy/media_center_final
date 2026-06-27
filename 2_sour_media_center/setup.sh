@@ -36,7 +36,8 @@ echo "✅ System-Pakete installiert"
 
 echo ""
 echo "=== 4. pip-Pakete installieren ==="
-pip3 install yt-dlp
+pip3 install yt-dlp --break-system-packages
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 echo "✅ pip-Pakete installiert"
 
 echo ""

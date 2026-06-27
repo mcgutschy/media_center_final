@@ -68,9 +68,23 @@ def _check_tts_available():
 
 
 def _check_ytdlp_available():
-    """Prüft ob yt-dlp verfügbar ist"""
+    """Prüft ob yt-dlp verfügbar und aktuell genug ist"""
     try:
-        subprocess.run(['yt-dlp', '--version'], check=True, capture_output=True)
+        result = subprocess.run(['yt-dlp', '--version'], check=True, capture_output=True, text=True)
+        version_str = result.stdout.strip()
+        parts = version_str.split('.')
+        if len(parts) == 3:
+            from datetime import datetime
+            year = int(parts[0])
+            month = int(parts[1])
+            version_date = datetime(year, month, 1)
+            age_days = (datetime.now() - version_date).days
+            if age_days > 90:
+                print(f"⚠️  yt-dlp ist {age_days} Tage alt ({version_str})!")
+                print("   YouTube funktioniert möglicherweise nicht.")
+                print("   Update: sudo pip3 install -U yt-dlp --break-system-packages")
+            else:
+                print(f"✅ yt-dlp {version_str} ({age_days} Tage alt)")
         return True
     except (subprocess.CalledProcessError, FileNotFoundError):
         return False

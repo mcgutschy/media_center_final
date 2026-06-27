@@ -1,0 +1,61 @@
+/home/
+└── sinnie/
+    └── media_center_final/
+        ├── .git/
+        ├── .gitignore
+        │
+        ├── 2_sour_media_center/                         ← Aktives Projekt (Raspberry Pi)
+        │   ├── README.md
+        │   ├── ABHÄNGIGKEITEN.md
+        │   ├── setup.sh
+        │   ├── gpio4_selector.py                        ← Programmwähler (AMP2/Kopfhörer)
+        │   ├── media-center.service                     ← systemd Service-File
+        │   ├── install-service.sh
+        │   ├── install-service-kommentiert.sh
+        │   │
+        │   ├── config/
+        │   │   ├── radio_stations.json                  ← 11 Radio-Stationen
+        │   │   └── youtube_channels.json                ← 11 YouTube-Kanäle
+        │   │
+        │   ├── data/
+        │   │   └── audiobook_progress.json              ← Hörbuch-Spielstände
+        │   │
+        │   ├── audiobooks/
+        │   │   ├── Nullzeit.mp3
+        │   │   ├── hoerspiel-nur-gummistiefel-sind-erlaubt.mp3
+        │   │   ├── die-grosse-weihnachtskaelte.mp3
+        │   │   ├── die-eroberung-von-byzanz.mp3
+        │   │   └── die-apotheke.mp3
+        │   │
+        │   ├── media_center/                            ← Python-Paket (AMP2 / Karte 3)
+        │   │   ├── __init__.py
+        │   │   ├── __main__.py                          ← Entry-Point
+        │   │   ├── auswahl.py                           ← Programmauswahl (Subprozess)
+        │   │   ├── radio_player.py                      ← Radio-Player
+        │   │   ├── youtube_player.py                    ← YouTube-Player
+        │   │   ├── audiobook_player.py                  ← Hörbuch-Player
+        │   │   ├── i2c_reader_program.py                ← I2C: Arduino 2 (0x09)
+        │   │   ├── i2c_reader_content.py                ← I2C: Arduino 1 (0x08)
+        │   │   ├── core.py                              ← Legacy-Monolith
+        │   │   └── __pycache__/
+        │   │
+        │   ├── kopf_media_center/                       ← Python-Paket (Kopfhörer / Karte 2)
+        │   │   ├── __init__.py
+        │   │   ├── __main__.py
+        │   │   ├── auswahl.py
+        │   │   ├── radio_player.py
+        │   │   ├── youtube_player.py
+        │   │   ├── audiobook_player.py
+        │   │   ├── i2c_reader_program.py
+        │   │   ├── i2c_reader_content.py
+        │   │   ├── core.py
+        │   │   └── __pycache__/
+        │   │
+        │   └── __pycache__/
+        │
+        ├── Struktur/                                    ← Dateistrukturen / Dokumentation
+        │   └── Ansicht_Dateipfade                       ← Diese Datei
+        │
+        ├── media_center_organized/                      ← Organisierte Version (Referenz)
+        │
+        └── Kopf_media_center_organized/                 ← Organisierte Version (Referenz)

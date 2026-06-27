@@ -15,6 +15,7 @@ StandardError=journal
 
 Environment=PYTHONUNBUFFERED=1
 Environment=HOME=/home/sinnie
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
 
 KillSignal=SIGTERM
 TimeoutStopSec=15

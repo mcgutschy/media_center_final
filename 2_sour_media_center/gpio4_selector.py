@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GPIO4 Selector - Umschalter zwischen media_center und kopf_media_center
+Programmwähler - Umschalter zwischen media_center und kopf_media_center
 
 GPIO 4 steuert den AMP2-Mute-Zustand:
   - GPIO 4 HIGH (AMP2 aktiv)    → media_center (HifiBerry AMP2, Soundkarte 3)
@@ -59,9 +59,12 @@ STOP_TIMEOUT = 5
 POLL_INTERVAL = 0.5
 DEBOUNCE_SECONDS = 1.5
 
+TTS_VOLUME_LAUTSPRECHER = 50
+TTS_VOLUME_KOPFHOERER = 40
 
-class GPIO4Selector:
-    """Umschalter zwischen media_center und kopf_media_center via GPIO 4"""
+
+class Programmwähler:
+    """Programmwähler: Umschalter zwischen media_center und kopf_media_center via GPIO 4"""
 
     def __init__(self):
         self.running = True
@@ -106,11 +109,33 @@ class GPIO4Selector:
             return
         try:
             temp_wav = "/tmp/tts_selector.wav"
-            subprocess.run(
+            result = subprocess.run(
                 ['pico2wave', '-l', 'de-DE', '-w', temp_wav, text],
-                check=True, capture_output=True,
+                capture_output=True, timeout=5,
             )
-            subprocess.run(['aplay', temp_wav], check=True, capture_output=True)
+            if result.returncode != 0:
+                print(f"⚠️  pico2wave Fehler: {result.stderr.decode()[:200]}")
+                return
+
+            if self.last_gpio_state:
+                card, device, control = '3', 'plughw:3,0', 'Digital'
+                volume = TTS_VOLUME_LAUTSPRECHER
+            else:
+                card, device, control = '2', 'plughw:2,0', 'PCM'
+                volume = TTS_VOLUME_KOPFHOERER
+
+            print(f"🔊 TTS: '{text}' → Karte {card}, {control} {volume}%")
+            subprocess.run(
+                ['amixer', '-c', card, '-q', 'set', control, f'{volume}%'],
+                capture_output=True, timeout=2,
+            )
+            result = subprocess.run(['aplay', '-D', device, temp_wav], capture_output=True, timeout=5)
+            if result.returncode != 0:
+                print(f"⚠️  aplay Fehler (Karte {card}): {result.stderr.decode()[:200]}")
+                if device == 'plughw:3,0':
+                    print("🔄 Fallback: TTS über Kopfhörer")
+                    subprocess.run(['aplay', '-D', 'plughw:2,0', temp_wav], capture_output=True, timeout=5)
+
             if os.path.exists(temp_wav):
                 os.remove(temp_wav)
         except Exception as e:
@@ -165,7 +190,6 @@ class GPIO4Selector:
         name = version["name"]
 
         print(f"🚀 Starte {name} ({package})...")
-        self._speak(name)
 
         try:
             self.current_process = subprocess.Popen(
@@ -199,6 +223,16 @@ class GPIO4Selector:
         print(f"{'─' * 50}")
 
         self._stop_current()
+
+        if version_key == "high":
+            subprocess.run(
+                ['amixer', '-c', '3', '-q', 'set', 'Digital', f'{TTS_VOLUME_LAUTSPRECHER}%'],
+                capture_output=True, timeout=2,
+            )
+            time.sleep(1.5)
+
+        self._speak(new_name)
+        time.sleep(0.3)
         self._start_version(version_key)
 
     # ── GPIO-Auswertung ──────────────────────────────────────────────
@@ -242,7 +276,7 @@ class GPIO4Selector:
                 time.sleep(POLL_INTERVAL)
 
         except KeyboardInterrupt:
-            print("\n\n⏹️  Beende GPIO4 Selector...")
+            print("\n\n⏹️  Beende Programmwähler...")
         finally:
             self.cleanup()
 
@@ -259,11 +293,11 @@ class GPIO4Selector:
             except Exception:
                 pass
 
-        print("✅ GPIO4 Selector beendet")
+        print("✅ Programmwähler beendet")
 
 
 def main():
-    selector = GPIO4Selector()
+    selector = Programmwähler()
 
     def signal_handler(sig, frame):
         print(f"\n📶 Signal {sig}")

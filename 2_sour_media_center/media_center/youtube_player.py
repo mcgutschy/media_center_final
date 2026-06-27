@@ -68,9 +68,23 @@ def _check_tts_available():
 
 
 def _check_ytdlp_available():
-    """Prüft ob yt-dlp verfügbar ist"""
+    """Prüft ob yt-dlp verfügbar und aktuell genug ist"""
     try:
-        subprocess.run(['yt-dlp', '--version'], check=True, capture_output=True)
+        result = subprocess.run(['yt-dlp', '--version'], check=True, capture_output=True, text=True)
+        version_str = result.stdout.strip()
+        parts = version_str.split('.')
+        if len(parts) == 3:
+            from datetime import datetime
+            year = int(parts[0])
+            month = int(parts[1])
+            version_date = datetime(year, month, 1)
+            age_days = (datetime.now() - version_date).days
+            if age_days > 90:
+                print(f"⚠️  yt-dlp ist {age_days} Tage alt ({version_str})!")
+                print("   YouTube funktioniert möglicherweise nicht.")
+                print("   Update: sudo pip3 install -U yt-dlp --break-system-packages")
+            else:
+                print(f"✅ yt-dlp {version_str} ({age_days} Tage alt)")
         return True
     except (subprocess.CalledProcessError, FileNotFoundError):
         return False
@@ -80,7 +94,7 @@ TTS_AVAILABLE = _check_tts_available()
 if not TTS_AVAILABLE:
     print("⚠️  pico2wave oder aplay nicht gefunden - keine TTS-Ansage")
     print("    Installieren mit: sudo apt install libttspico-utils alsa-utils")
-
+ 
 YTDLP_AVAILABLE = _check_ytdlp_available()
 if not YTDLP_AVAILABLE:
     print("❌ yt-dlp nicht gefunden! Installieren mit: pip3 install yt-dlp")
@@ -98,7 +112,7 @@ LONG_SKIP_MS = LONG_SKIP_MINUTES * 60 * 1000
 BEEP_FREQUENCY = 800
 BEEP_DURATION = 0.012
 
-MAX_VIDEOS_PER_CHANNEL = 20   # Wie viele neueste Videos pro Kanal laden
+MAX_VIDEOS_PER_CHANNEL = 10    # Wie viele neueste Videos pro Kanal laden
 CACHE_LIFETIME = 600           # Sekunden bevor Video-Liste neu geladen wird (10 min)
 
 # Richtungs-Konstanten
@@ -199,7 +213,7 @@ class YouTubePlayer:
             print(f"⚠️  VLC ALSA-Optionen fehlgeschlagen: {e}")
             self.instance = vlc.Instance('--no-video')
         self.player = self.instance.media_player_new()
-        subprocess.run(['amixer', '-c', '3', '-q', 'set', 'Digital', '100%'],
+        subprocess.run(['amixer', '-c', '3', '-q', 'set', 'Digital', '30%'],
                         capture_output=True, timeout=2)
         print("✅ VLC initialisiert")
 
@@ -452,7 +466,7 @@ class YouTubePlayer:
         """Text mit pico2wave vorlesen"""
         if not TTS_AVAILABLE or not text or not text.strip():
             return
-        volume = min((volume if volume is not None else self.current_volume) + 40, 100)
+        volume = min((volume if volume is not None else self.current_volume) + 27, 100)
         try:
             print(f"🔊 Sage: '{text}' (Lautstärke: {volume}%)")
             temp_wav = "/tmp/tts_announcement.wav"

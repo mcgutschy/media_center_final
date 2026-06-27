@@ -385,7 +385,7 @@ class AudiobookPlayer:
         """Gemeinsame TTS-Logik: Text mit pico2wave vorlesen"""
         if not TTS_AVAILABLE or not text or not text.strip():
             return
-        volume = min((volume if volume is not None else self.current_volume) + 40, 100)
+        volume = min((volume if volume is not None else self.current_volume) + 30, 100)
         try:
             print(f"🔊 Sage: '{text}' (Lautstärke: {volume}%)")
             temp_wav = "/tmp/tts_announcement.wav"

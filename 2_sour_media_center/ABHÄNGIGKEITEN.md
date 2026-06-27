@@ -70,14 +70,21 @@ sudo apt install -y \
 ## 4️⃣ pip-Pakete
 
 ```bash
-pip3 install yt-dlp
+sudo pip3 install yt-dlp --break-system-packages
 ```
 
 | pip-Paket | Verwendet in | Zweck |
 |---|---|---|
 | `yt-dlp` | `youtube_player.py` | YouTube-Videos abrufen (CLI-Tool) |
 
-> **Hinweis:** Regelmäßig aktualisieren: `pip3 install -U yt-dlp`
+> **Hinweis:** Regelmäßig aktualisieren: `sudo pip3 install -U yt-dlp --break-system-packages`
+>
+> **Automatisches Update per Cron (empfohlen):**
+> ```bash
+> sudo crontab -e
+> # Zeile einfügen:
+> # 0 4 * * * pip3 install -U yt-dlp --break-system-packages -q
+> ```
 
 ---
 
@@ -169,7 +176,7 @@ cd media_center_organized && python3 -m media_center    # Starten
 | 6 | `libttspico-utils` | `sudo apt install libttspico-utils` | APT |
 | 7 | `alsa-utils` | `sudo apt install alsa-utils` | APT |
 | 8 | `i2c-tools` | `sudo apt install i2c-tools` | APT |
-| 9 | `yt-dlp` | `pip3 install yt-dlp` | pip |
+| 9 | `yt-dlp` | `sudo pip3 install yt-dlp --break-system-packages` | pip |
 
 ---
 

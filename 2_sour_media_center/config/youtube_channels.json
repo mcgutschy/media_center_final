@@ -1,59 +1,48 @@
 {
-  "channels": [
-    {
-      "position": 0,
-      "name": "Tagesschau",
-      "url": "https://www.youtube.com/@tagesschau/videos"
-    },
-    {
-      "position": 1,
-      "name": "ZDF heute",
-      "url": "https://www.youtube.com/@ZDFheute/videos"
-    },
-    {
-      "position": 2,
-      "name": "Breaking Lab",
-      "url": "https://www.youtube.com/@BreakingLab"
-    },
-    {
-      "position": 3,
-      "name": "Zeit TV",
-      "url": "https://www.youtube.com/@zeit/videos"
-    },
-    {
-      "position": 4,
-      "name": "ARD-alpha",
-      "url": "https://www.youtube.com/@ARDalpha/videos"
-    },
-    {
-      "position": 5,
-      "name": "Süddeutsche Zeitung",
-      "url": "https://www.youtube.com/@sueddeutsche/videos"
-    },
-    {
-      "position": 6,
-      "name": "Faz.net",
-      "url": "https://www.youtube.com/@faz/videos"
-    },
-    {
-      "position": 7,
-      "name": "Detektor.fm",
-      "url": "https://www.youtube.com/@detektorfm/videos"
-    },
-    {
-      "position": 8,
-      "name": "Officialnorio",
-      "url": "https://www.youtube.com/@Officialnorio/videos"
-    },
-    {
-      "position": 9,
-      "name": "Akkudoktor",
-      "url": "https://www.youtube.com/@Akkudoktor/videos"
-    },
-    {
-      "position": 10,
-      "name": "Alte Schule",
-      "url": "https://www.youtube.com/@alte-schule/videos"
-    }
-  ]
+    "channels": [
+        {
+            "name": "Tagesschau",
+            "url": "https://www.youtube.com/@tagesschau/videos"
+        },
+        {
+            "name": "ZDF heute",
+            "url": "https://www.youtube.com/@ZDFheute/videos"
+        },
+        {
+            "name": "Breaking Lab",
+            "url": "https://www.youtube.com/@BreakingLab"
+        },
+        {
+            "name": "Zeit TV",
+            "url": "https://www.youtube.com/@zeit/videos"
+        },
+        {
+            "name": "ARD-alpha",
+            "url": "https://www.youtube.com/@ARDalpha/videos"
+        },
+        {
+            "name": "Süddeutsche Zeitung",
+            "url": "https://www.youtube.com/@sueddeutsche/videos"
+        },
+        {
+            "name": "Faz.net",
+            "url": "https://www.youtube.com/@faz/videos"
+        },
+        {
+            "name": "Officialnorio",
+            "url": "https://www.youtube.com/@Officialnorio/videos"
+        },
+        {
+            "name": "Akkudoktor",
+            "url": "https://www.youtube.com/@Akkudoktor/videos"
+        },
+        {
+            "name": "Alte Schule",
+            "url": "https://www.youtube.com/@alte-schule/videos"
+        },
+        {
+            "name": "Geld für die Welt",
+            "url": "https://www.youtube.com/@Maurice_Hoefgen/videos"
+        }
+    ]
 }
